@@ -1,0 +1,3 @@
+{
+"list":["<li><p>类型</p><p>Confirm(检验)</p></li><li><p>说明</p><p>对输入框进行非空校验</p></li>","<li><p>Demo</p><input type='text' placeholder='请输入用户名' class='requires'><input type='password' placeholder='请输入密码' class='requires'><button onclick='confirm()'>提交</button></li><li><p>调用方法</p><p>input 类名中增加 requires进行标识<br>调用 $.required();</p></li>","<script>function confirm(){$.required()}</script>"]
+}

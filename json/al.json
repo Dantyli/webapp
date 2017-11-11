@@ -1,0 +1,3 @@
+{
+"list":["<li><p>类型</p><p>ActionList(操作列表)</p></li><li><p>说明</p><p>底部弹出可选项</p></li>","<li><p>Demo</p><button onclick='list()'>Demo</button></li><li><p>你选择了</p><p class='chek'></p></li>","<script>function list(){$('body .selectSex').slideToggle();$('body').append('<div class=mask></div>')} $('.selectSex').on('click','li',function(){$(this).addClass('activ').siblings('li').removeClass('activ');$('.selectSex').slideToggle();$('body .mask').remove();$('body .chek').html($(this).attr('data-sex'))}) </script>"]
+}

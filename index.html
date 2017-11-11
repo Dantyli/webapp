@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>webapp</title>
+	<link rel="stylesheet" href="common.css">
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	<script type="text/javascript" src="common.js"></script>
+</head>
+<body>
+	<header>
+		<h1>列表</h1>
+	</header>
+	<ul class="menu">
+		<li data-type='alert'>Alert</li>
+		<li data-type='confirm'>Confirm</li>
+		<li data-type='al'>ActionList</li>
+		<li data-type='vi'>viewImage</li>
+	</ul>
+	<div class="content">
+		<header>
+		<i class="back">≡</i>
+		<h1>内容</h1>
+		</header>
+		<ul class="introduce">
+		   
+		</ul>
+	</div>
+	<!--loading-->
+	<div class="loader1 loader">
+		<div>	
+			<p></p>
+			<p></p>
+			<p></p>
+		</div>
+    </div>
+</body>
+<script>
+    function hash(type){
+		$('body .selectSex').remove();	
+		if(type==='al'){
+		 $('body').append('<ul class="selectSex"><li data-sex="男"  class="activ">Male</li><li data-sex="女">Female</li><li data-sex="外星人">Alien</li></ul>');	
+		}
+		setTimeout(function(){
+			$.ajax({
+				type:"get",
+				url:"json/"+type+".json",
+				async:true,
+				success:function(data){
+					var list=''
+					$.each(data.list, function(i,n) {
+						list+=n;
+					});
+					$('.introduce').html(list);
+				}
+			});
+			$('.loader').hide();
+		},500)
+	}
+	$('.menu').on('click','li',function(){
+		var type=$(this).attr('data-type');
+		document.location.hash=type;
+		window.onhashchange=function(){
+			$('.loader').show();
+			hash(type);
+			$('.content').toggleClass('show');
+		}
+		
+	});
+	$('.back').on('click',function(){
+		window.onhashchange=function(){
+		   $('.content').toggleClass('show');
+	    }
+		history.go(-1);
+	})
+	if(document.location.hash){
+		var hashl=document.location.hash.substring(1);
+		hash(hashl);
+		$('.content').toggleClass('show');
+	}else{
+		$('.content').removeClass('show');
+	}
+</script>
+</html>
