@@ -111,6 +111,18 @@
     }
 })(window, window['lib'] || (window['lib'] = {}));
 $(function(){
+	//转为blob对象
+	function dataURLtoBlob(dataurl){
+		var arr = dataurl.split(',');
+		var mime = arr[0].match(/:(.*?);/)[1];
+		var bstr = atob(arr[1]);
+		var n = bstr.length;
+		var u8arr = new Uint8Array(n);
+		while(n--){
+			u8arr[n] = bstr.charCodeAt(n);
+		}
+		return new Blob([u8arr], {type:mime});
+	}
 	let b = $;
 	//凭证图片
 	{
@@ -162,6 +174,8 @@ $(function(){
 					ctx.drawImage(img, 0, 0, canvas.width, canvas.height); //image转换为canvas
 					imgs = new Image()
 					imgs.src = canvas.toDataURL("image/jpeg", 0.9); //canvas内容提取为图片,jpg格式可设置图片质量
+					var blobObj = dataURLtoBlob(imgs.src);
+					formData.append('img',blobObj,'1.jpg');//blob对象追加进formdata中,注意第三个参数的设置
 					imgs.setAttribute('class','imgzoom');
 					b('body .imgContainer').append(imgs);
 				}
