@@ -123,15 +123,15 @@ $(function(){
 		}
 		return new Blob([u8arr], {type:mime});
 	}
-	let b = $;
+	var b = $;
 	//凭证图片
 	{
 		b('body').on('click','.imgzoom',function(){
-			let imgZoom=new Image();
+			var imgZoom=new Image();
 			imgZoom.setAttribute('class','imgZom');
 			b('body').append(imgZoom);
 			b('body').append('<div class="mask"></div>');
-			let zoomSrc=b(this).attr('src');
+			var zoomSrc=b(this).attr('src');
 			b('body .imgZom').attr('src',zoomSrc);
 			b('body .imgZom').fadeIn();
 			b('body .imgZom').on('click',function(){
@@ -142,18 +142,18 @@ $(function(){
 		b('body').on('click','.addUp',function(){
 			b('.inputUp').trigger('click');
 		})
-	    let formData = new FormData(),
+	    var formData = new FormData(),
 			imgArr=[];
 		b('body').on('change input','.inputUp', function() {
 			var me = this;
 			if (me.value) {
-				let img = new Image();
-				let getUrl = function(blob) {
+				var img = new Image();
+				var getUrl = function(blob) {
 					return window[window.webkitURL ? 'webkitURL' : 'URL']['createObjectURL'](blob);
 				}
 				img.src = getUrl(this.files[0]);
 				img.onload = function() {
-					let maxWidth = 1000,
+					var maxWidth = 1000,
 						maxHeight = 1000,
 						imgWidth = img.width,
 						imgHeight = img.height;
@@ -166,10 +166,10 @@ $(function(){
 							imgHeight = imgWidth * img.height / img.width;
 						}
 					}
-					let canvas = document.createElement("canvas");
+					var canvas = document.createElement("canvas");
 					canvas.width = imgWidth * 0.7;
 					canvas.height = imgHeight * 0.7;
-					let ctx = canvas.getContext("2d");
+					var ctx = canvas.getContext("2d");
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
 					ctx.drawImage(img, 0, 0, canvas.width, canvas.height); //image转换为canvas
 					imgs = new Image()
@@ -185,15 +185,17 @@ $(function(){
 	//提示
 	{
 		jQuery.Alert=function(msg){
-				let tips='<div class="normal_tips">'+msg+'</div>';
-				b('body').append(tips);
-				let timer=setTimeout(function(){
-						b('body .normal_tips').remove();
-					},1500);	
+			b('body .normal_tips').remove();
+			clearTimeout(timer);
+			var tips='<div class="normal_tips">'+msg+'</div>';
+			b('body').append(tips);
+			var timer=setTimeout(function(){
+					b('body .normal_tips').remove();
+				},1500);	
 		};
 		jQuery.sureAlert=function(msg){
-			let mask='<div class="mask"></div>';
-			let sureTips='<ul class="sureTips"><li>'+msg+'</li><li>确定</li></ul>';
+			var mask='<div class="mask"></div>';
+			var sureTips='<ul class="sureTips"><li>'+msg+'</li><li>确定</li></ul>';
 			b('body').append(mask);
 			b('body').append(sureTips);
 			b('body .sureTips li:eq(1)').on('click',function(){
@@ -203,8 +205,8 @@ $(function(){
 			})
 		};
 		jQuery.optAlert=function(str,canOpts){
-			let mask='<div class="mask"></div>';
-			let opts='<ul class="optAlert"><li class="cont">'+str+'</li><li><p class="orders_cancel">取消</p><p class="'+canOpts+'">确定</p></li></ul>';
+			var mask='<div class="mask"></div>';
+			var opts='<ul class="optAlert"><li class="cont">'+str+'</li><li><p class="orders_cancel">取消</p><p class="'+canOpts+'">确定</p></li></ul>';
 			b('body').append(mask);
 			b('body').append(opts);
 			b('body').on('click','.orders_cancel',function(){
@@ -221,7 +223,7 @@ $(function(){
 			})
 		}
 		jQuery.required=function(){
-			let prompt=['用户名不能为空','密码不能为空'];
+			var prompt=['用户名不能为空','密码不能为空'];
                     for(var i=0;i<b('.requires').length;i++){
                     	let that=this;
                     	if($.trim(b('.requires').get(i).value).length==0){
