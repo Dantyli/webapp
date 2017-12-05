@@ -171,6 +171,9 @@ $(function(){
 					canvas.height = imgHeight * 0.7;
 					var ctx = canvas.getContext("2d");
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					// 设置为白色背景，jpg是不支持透明的，所以会被默认为canvas默认的黑色背景。
+					ctx.fillStyle = '#fff';
+					ctx.fillRect(0, 0, canvas.width, canvas.height);
 					ctx.drawImage(img, 0, 0, canvas.width, canvas.height); //image转换为canvas
 					imgs = new Image()
 					imgs.src = canvas.toDataURL("image/jpeg", 0.9); //canvas内容提取为图片,jpg格式可设置图片质量
